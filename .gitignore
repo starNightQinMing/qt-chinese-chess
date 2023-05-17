@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# 过滤文件夹
+build-ChineseChess-Desktop_Qt_5_14_2_MinGW_64_bit-Debug
+
