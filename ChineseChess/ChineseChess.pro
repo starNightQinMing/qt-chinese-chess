@@ -18,10 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(./chess/chess.pri)
 
 SOURCES += \
+    iglobal.cpp \
     main.cpp \
     imainwidget.cpp
 
 HEADERS += \
+    iglobal.h \
     imainwidget.h
 
 # Default rules for deployment.
