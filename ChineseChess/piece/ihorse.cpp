@@ -3,7 +3,7 @@
 #include "iglobal.h"
 
 IHorse::IHorse(QObject *parent)
-    : IAbstractChess(parent)
+    : IPiece(parent)
 {
 
 }
@@ -13,17 +13,17 @@ IHorse::~IHorse()
 
 }
 
-IChessType IHorse::type()
+IPieceType IHorse::type()
 {
-    return IChessType::Horse;
+    return IPieceType::Horse;
 }
 
-QList<IChessStep*> IHorse::allPossibleSteps()
+QList<IStep*> IHorse::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //上
     newPos = this->m_pos + QPoint(-1, -2);
     pStep = canMoveTo(newPos);
@@ -89,7 +89,7 @@ bool IHorse::canMove(const QPoint &newPos)
     {
         midPos = this->m_pos.x() > newPos.x() ? this->m_pos + QPoint(-1, 0) : this->m_pos + QPoint(1, 0);
     }
-    if (IGlobal::global().findChess(midPos))
+    if (IGlobal::global().findPiece(midPos))
         return false;
 
     //可以移动到该位置

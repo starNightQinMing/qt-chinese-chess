@@ -3,7 +3,7 @@
 #include "iglobal.h"
 
 IGuard::IGuard(QObject *parent)
-    : IAbstractChess(parent)
+    : IPiece(parent)
 {
 
 }
@@ -13,17 +13,17 @@ IGuard::~IGuard()
 
 }
 
-IChessType IGuard::type()
+IPieceType IGuard::type()
 {
-    return IChessType::Guard;
+    return IPieceType::Guard;
 }
 
-QList<IChessStep*> IGuard::allPossibleSteps()
+QList<IStep*> IGuard::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //左上
     newPos = this->m_pos + QPoint(-1, -1);
     pStep = canMoveTo(newPos);
@@ -62,7 +62,7 @@ QList<IChessStep*> IGuard::allPossibleSteps()
 bool IGuard::canMove(const QPoint &newPos)
 {
     //新位置不在九宫格之内
-    if (!IGlobal::global().chessCampJiuGongGeRange(m_camp).contains(newPos))
+    if (!IGlobal::global().pieceCampJiuGongGeRange(m_camp).contains(newPos))
         return false;
 
     //新位置与自己位置不能形成口字

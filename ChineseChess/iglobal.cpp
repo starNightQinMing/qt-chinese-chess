@@ -1,6 +1,6 @@
 ﻿#include "iglobal.h"
 
-#include "chess/ichessfactory.h"
+#include "piece/ipiecefactory.h"
 
 IGlobal &IGlobal::global()
 {
@@ -15,33 +15,33 @@ void IGlobal::reset()
     qint32 count = posList.count();
     for (qint32 index = 0;index < count;index++)
     {
-        m_chessList[index]->setIsDead(false);
-        m_chessList[index]->setPos(posList[index]);
+        m_pieceList[index]->setIsDead(false);//所有状态都是未死亡
+        m_pieceList[index]->setPos(posList[index]);
     }
 }
 
-QList<IAbstractChess *> IGlobal::chessList() const
+QList<IPiece *> IGlobal::pieceList() const
 {
-    return m_chessList;
+    return m_pieceList;
 }
 
-IAbstractChess *IGlobal::findChess(const IChessType &type, const IChessCamp &camp) const
+IPiece *IGlobal::findPiece(const IPieceType &type, const IPieceCamp &camp) const
 {
-    for (IAbstractChess* pChess : m_chessList)
+    for (IPiece* pPiece : m_pieceList)
     {
-        if (!pChess->isDead() && pChess->type() == type && pChess->camp() == camp)
-            return pChess;
+        if (!pPiece->isDead() && pPiece->type() == type && pPiece->camp() == camp)
+            return pPiece;
     }
 
     return nullptr;
 }
 
-IAbstractChess *IGlobal::findChess(const QPoint &pos) const
+IPiece *IGlobal::findPiece(const QPoint &pos) const
 {
-    for (IAbstractChess* pChess : m_chessList)
+    for (IPiece* pPiece : m_pieceList)
     {
-        if (!pChess->isDead() && pChess->pos() == pos)
-            return pChess;
+        if (!pPiece->isDead() && pPiece->pos() == pos)
+            return pPiece;
     }
 
     return nullptr;
@@ -52,18 +52,18 @@ QRect IGlobal::bordRange() const
     return QRect(0, 0, 9, 10);
 }
 
-QRect IGlobal::chessCampRange(const IChessCamp &camp) const
+QRect IGlobal::pieceCampRange(const IPieceCamp &camp) const
 {
-    IAbstractChess* pKing = findChess(IChessType::General, camp);
+    IPiece* pKing = findPiece(IPieceType::General, camp);
     if (pKing == nullptr)
         return QRect();
 
     return (pKing->pos().y() < 4) ? QRect(0, 0, 9, 5) : QRect(0, 5, 9, 5);
 }
 
-QRect IGlobal::chessCampJiuGongGeRange(const IChessCamp &camp) const
+QRect IGlobal::pieceCampJiuGongGeRange(const IPieceCamp &camp) const
 {
-    IAbstractChess* pKing = findChess(IChessType::General, camp);
+    IPiece* pKing = findPiece(IPieceType::General, camp);
     if (pKing == nullptr)
         return QRect();
 
@@ -73,7 +73,7 @@ QRect IGlobal::chessCampJiuGongGeRange(const IChessCamp &camp) const
 IGlobal::IGlobal(QObject *parent)
     : QObject(parent)
 {
-    initChess();
+    initPiece();
     initPos();
     reset();
 }
@@ -95,16 +95,16 @@ void IGlobal::initPos()
     m_redPosList = redPositionList;
 }
 
-void IGlobal::initChess()
+void IGlobal::initPiece()
 {
     //类型
-    QList<IChessType> typeList;
-    typeList << IChessType::Soldier << IChessType::Soldier << IChessType::Soldier
-             << IChessType::Soldier << IChessType::Soldier;
-    typeList << IChessType::Guard << IChessType::Guard << IChessType::General
-             << IChessType::Elephant << IChessType::Elephant;
-    typeList << IChessType::Horse << IChessType::Horse << IChessType::Cannon
-             << IChessType::Cannon << IChessType::Castle << IChessType::Castle;
+    QList<IPieceType> typeList;
+    typeList << IPieceType::Soldier << IPieceType::Soldier << IPieceType::Soldier
+             << IPieceType::Soldier << IPieceType::Soldier;
+    typeList << IPieceType::Guard << IPieceType::Guard << IPieceType::General
+             << IPieceType::Elephant << IPieceType::Elephant;
+    typeList << IPieceType::Horse << IPieceType::Horse << IPieceType::Cannon
+             << IPieceType::Cannon << IPieceType::Castle << IPieceType::Castle;
 
     qint32 count = 16;
     //黑棋
@@ -115,13 +115,13 @@ void IGlobal::initChess()
     blackNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
 
     //创建棋子，添加到数组中
-    IChessCamp blackCamp = IChessCamp::Black;
+    IPieceCamp blackCamp = IPieceCamp::Black;
     for (qint32 index = 0; index < count; index++)
     {
-        IAbstractChess* pChess = IChessFactory::createChess(typeList[index]);
-        pChess->setCamp(blackCamp);
-        pChess->setName(blackNameList[index]);
-        m_chessList.append(pChess);
+        IPiece* pPiece = IPieceFactory::createPiece(typeList[index]);
+        pPiece->setCamp(blackCamp);
+        pPiece->setName(blackNameList[index]);
+        m_pieceList.append(pPiece);
     }
 
     //红棋
@@ -132,12 +132,12 @@ void IGlobal::initChess()
     blackNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
 
     //创建棋子，添加到数组中
-    IChessCamp redCamp = IChessCamp::Red;
+    IPieceCamp redCamp = IPieceCamp::Red;
     for (qint32 index = 0; index < count; index++)
     {
-        IAbstractChess* pChess = IChessFactory::createChess(typeList[index]);
-        pChess->setCamp(redCamp);
-        pChess->setName(redNameList[index]);
-        m_chessList.append(pChess);
+        IPiece* pPiece = IPieceFactory::createPiece(typeList[index]);
+        pPiece->setCamp(redCamp);
+        pPiece->setName(redNameList[index]);
+        m_pieceList.append(pPiece);
     }
 }

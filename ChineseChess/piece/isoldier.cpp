@@ -3,7 +3,7 @@
 #include "iglobal.h"
 
 ISoldier::ISoldier(QObject *parent)
-    : IAbstractChess(parent)
+    : IPiece(parent)
 {
 
 }
@@ -13,17 +13,17 @@ ISoldier::~ISoldier()
 
 }
 
-IChessType ISoldier::type()
+IPieceType ISoldier::type()
 {
-    return IChessType::Soldier;
+    return IPieceType::Soldier;
 }
 
-QList<IChessStep*> ISoldier::allPossibleSteps()
+QList<IStep*> ISoldier::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //上
     newPos = this->m_pos + QPoint(0, -1);
     pStep = canMoveTo(newPos);
@@ -54,7 +54,7 @@ QList<IChessStep*> ISoldier::allPossibleSteps()
 bool ISoldier::canMove(const QPoint &newPos)
 {
     //兵不能后退
-    IAbstractChess* pGeneray = IGlobal::global().findChess(IChessType::General, m_camp);
+    IPiece* pGeneray = IGlobal::global().findPiece(IPieceType::General, m_camp);
     qint32 maxY = this->m_pos.y();
     qint32 minY = pGeneray->pos().y();
     if (pGeneray->pos().y() > this->m_pos.y())

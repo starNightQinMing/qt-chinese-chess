@@ -1,17 +1,17 @@
 ﻿#ifndef ISOLDIER_H
 #define ISOLDIER_H
 
-#include "iabstractchess.h"
+#include "ipiece.h"
 
-class ISoldier : public IAbstractChess
+class ISoldier : public IPiece
 {
     Q_OBJECT
 public:
     explicit ISoldier(QObject *parent = nullptr);
     virtual ~ISoldier();
 
-    virtual IChessType type() override;
-    virtual QList<IChessStep*> allPossibleSteps() override;
+    virtual IPieceType type() override;
+    virtual QList<IStep*> allPossibleSteps() override;
 
 protected:
     virtual bool canMove(const QPoint& newPos) override;

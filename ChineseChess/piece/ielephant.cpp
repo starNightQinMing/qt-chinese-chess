@@ -3,7 +3,7 @@
 #include "iglobal.h"
 
 IElephant::IElephant(QObject *parent)
-    : IAbstractChess(parent)
+    : IPiece(parent)
 {
 
 }
@@ -13,17 +13,17 @@ IElephant::~IElephant()
 
 }
 
-IChessType IElephant::type()
+IPieceType IElephant::type()
 {
-    return IChessType::Elephant;
+    return IPieceType::Elephant;
 }
 
-QList<IChessStep*> IElephant::allPossibleSteps()
+QList<IStep*> IElephant::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //左上
     newPos = this->m_pos + QPoint(-2, -2);
     pStep = canMoveTo(newPos);
@@ -77,7 +77,7 @@ bool IElephant::canMove(const QPoint &newPos)
     {
         midPos = this->m_pos.y() < newPos.y() ? this->m_pos + QPoint(-1, 1) : this->m_pos + QPoint(-1, -1);
     }
-    if (IGlobal::global().findChess(midPos) != nullptr)
+    if (IGlobal::global().findPiece(midPos) != nullptr)
         return false;
 
     //可以移动到该位置

@@ -3,7 +3,7 @@
 #include "iglobal.h"
 
 IGeneral::IGeneral(QObject *parent)
-    : IAbstractChess(parent)
+    : IPiece(parent)
 {
 
 }
@@ -13,17 +13,17 @@ IGeneral::~IGeneral()
 
 }
 
-IChessType IGeneral::type()
+IPieceType IGeneral::type()
 {
-    return IChessType::General;
+    return IPieceType::General;
 }
 
-QList<IChessStep*> IGeneral::allPossibleSteps()
+QList<IStep*> IGeneral::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //上
     newPos = this->m_pos + QPoint(0, -1);
     pStep = canMoveTo(newPos);
@@ -49,10 +49,10 @@ QList<IChessStep*> IGeneral::allPossibleSteps()
         stepList.append(pStep);
 
     //将军碰面
-    IChessCamp enemy = IChessCamp::Red;
+    IPieceCamp enemy = IPieceCamp::Red;
     if (this->m_camp == enemy)
-        enemy = IChessCamp::Black;
-    IAbstractChess* pEnemyGeneral = IGlobal::global().findChess(IChessType::General, enemy);
+        enemy = IPieceCamp::Black;
+    IPiece* pEnemyGeneral = IGlobal::global().findPiece(IPieceType::General, enemy);
     newPos = pEnemyGeneral->pos();
     pStep = canMoveTo(newPos);
     if (pStep != nullptr)
@@ -64,10 +64,10 @@ QList<IChessStep*> IGeneral::allPossibleSteps()
 bool IGeneral::canMove(const QPoint &newPos)
 {
     //将军碰面
-    IChessCamp enemy = IChessCamp::Red;
+    IPieceCamp enemy = IPieceCamp::Red;
     if (this->m_camp == enemy)
-        enemy = IChessCamp::Black;
-    IAbstractChess* pEnemyGeneral = IGlobal::global().findChess(IChessType::General, enemy);
+        enemy = IPieceCamp::Black;
+    IPiece* pEnemyGeneral = IGlobal::global().findPiece(IPieceType::General, enemy);
     if (newPos == pEnemyGeneral->pos() && pEnemyGeneral->pos().x() == this->pos().x())
     {
         qint32 minY = pEnemyGeneral->pos().y();
@@ -82,8 +82,8 @@ bool IGeneral::canMove(const QPoint &newPos)
         for (qint32 y = minY + 1; y < maxY; y++)
         {
             midPos.setY(y);
-            IAbstractChess* pChess = IGlobal::global().findChess(midPos);
-            if (pChess != nullptr)
+            IPiece* pPiece = IGlobal::global().findPiece(midPos);
+            if (pPiece != nullptr)
                 return false;
         }
 
@@ -91,7 +91,7 @@ bool IGeneral::canMove(const QPoint &newPos)
     }
 
     //新位置不在九宫格之内
-    if (!IGlobal::global().chessCampJiuGongGeRange(m_camp).contains(newPos))
+    if (!IGlobal::global().pieceCampJiuGongGeRange(m_camp).contains(newPos))
         return false;
 
     //新位置与自己位置不是相隔一列或一行

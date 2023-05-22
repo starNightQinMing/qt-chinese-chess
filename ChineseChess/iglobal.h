@@ -4,7 +4,7 @@
 #include <QtCore/qobject.h>
 #include <QtCore/qrect.h>
 
-#include "chess/iabstractchess.h"
+#include "piece/ipiece.h"
 
 class IGlobal : public QObject
 {
@@ -13,24 +13,24 @@ public:
     static IGlobal& global();
     void reset();
 
-    QList<IAbstractChess*> chessList() const;
-    IAbstractChess* findChess(const IChessType& type, const IChessCamp& camp) const;
-    IAbstractChess* findChess(const QPoint& pos) const;
+    QList<IPiece*> pieceList() const;
+    IPiece* findPiece(const IPieceType& type, const IPieceCamp& camp) const;
+    IPiece* findPiece(const QPoint& pos) const;
     QRect bordRange() const;
-    QRect chessCampRange(const IChessCamp& camp) const;
-    QRect chessCampJiuGongGeRange(const IChessCamp& camp) const;
+    QRect pieceCampRange(const IPieceCamp& camp) const;
+    QRect pieceCampJiuGongGeRange(const IPieceCamp& camp) const;
 
 private:
     explicit IGlobal(QObject *parent = nullptr);
     void initPos();
-    void initChess();
+    void initPiece();
 
 signals:
 
 private:
     QList<QPoint> m_blackPosList;
     QList<QPoint> m_redPosList;
-    QList<IAbstractChess*> m_chessList;
+    QList<IPiece*> m_pieceList;
 };
 
 #endif // IGLOBAL_H

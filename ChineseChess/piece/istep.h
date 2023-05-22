@@ -1,16 +1,16 @@
-﻿#ifndef ICHESSSTEP_H
-#define ICHESSSTEP_H
+﻿#ifndef IPieceSTEP_H
+#define IPieceSTEP_H
 
 #include <QtCore/qobject.h>
 #include <QtCore/qpoint.h>
 
-class IAbstractChess;
+class IPiece;
 
-class IChessStep : public QObject
+class IStep : public QObject
 {
     Q_OBJECT
 public:
-    explicit IChessStep(QObject *parent = nullptr);
+    explicit IStep(QObject *parent = nullptr);
 
     QPoint originalPos() const;
     void setOriginalPos(const QPoint &originalPos);
@@ -24,11 +24,11 @@ public:
     bool isRevoked() const;
     void setIsRevoked(bool isRevoked);
 
-    IAbstractChess *currentChess() const;
-    void setCurrentChess(IAbstractChess *pCurrentChess);
+    IPiece *currentPiece() const;
+    void setCurrentPiece(IPiece *pCurrentPiece);
 
-    IAbstractChess *killChess() const;
-    void setKillChess(IAbstractChess *pKillChess);
+    IPiece *killPiece() const;
+    void setKillPiece(IPiece *pKillPiece);
 
     bool execute();
     bool revoke();
@@ -42,8 +42,8 @@ private:
     QPoint m_newPos;
     bool m_isExecuted;
     bool m_isRevoked;
-    IAbstractChess* m_pCurrentChess;
-    IAbstractChess* m_pKillChess;
+    IPiece* m_pCurrentPiece;
+    IPiece* m_pKillPiece;
 };
 
-#endif // ICHESSSTEP_H
+#endif // IPieceSTEP_H

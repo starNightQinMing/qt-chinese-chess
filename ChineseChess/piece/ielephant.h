@@ -1,17 +1,17 @@
 ﻿#ifndef ELEPHANT_H
 #define ELEPHANT_H
 
-#include "iabstractchess.h"
+#include "ipiece.h"
 
-class IElephant : public IAbstractChess
+class IElephant : public IPiece
 {
     Q_OBJECT
 public:
     explicit IElephant(QObject *parent = nullptr);
     virtual ~IElephant();
 
-    virtual IChessType type() override;
-    virtual QList<IChessStep*> allPossibleSteps() override;
+    virtual IPieceType type() override;
+    virtual QList<IStep*> allPossibleSteps() override;
 
 protected:
     virtual bool canMove(const QPoint& newPos) override;

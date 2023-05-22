@@ -1,23 +1,23 @@
 HEADERS += \
-    $$PWD/iabstractchess.h \
     $$PWD/icannon.h \
     $$PWD/icastle.h \
-    $$PWD/ichessfactory.h \
-    $$PWD/ichessstep.h \
     $$PWD/ielephant.h \
     $$PWD/igeneral.h \
     $$PWD/iguard.h \
     $$PWD/ihorse.h \
-    $$PWD/isoldier.h
+    $$PWD/ipiece.h \
+    $$PWD/ipiecefactory.h \
+    $$PWD/isoldier.h \
+    $$PWD/istep.h
 
 SOURCES += \
-    $$PWD/iabstractchess.cpp \
     $$PWD/icannon.cpp \
     $$PWD/icastle.cpp \
-    $$PWD/ichessfactory.cpp \
-    $$PWD/ichessstep.cpp \
     $$PWD/ielephant.cpp \
     $$PWD/igeneral.cpp \
     $$PWD/iguard.cpp \
     $$PWD/ihorse.cpp \
-    $$PWD/isoldier.cpp
+    $$PWD/ipiece.cpp \
+    $$PWD/ipiecefactory.cpp \
+    $$PWD/isoldier.cpp \
+    $$PWD/istep.cpp

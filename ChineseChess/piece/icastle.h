@@ -1,17 +1,17 @@
 ﻿#ifndef ICAR_H
 #define ICAR_H
 
-#include "iabstractchess.h"
+#include "ipiece.h"
 
-class ICastle : public IAbstractChess
+class ICastle : public IPiece
 {
     Q_OBJECT
 public:
     explicit ICastle(QObject *parent = nullptr);
     virtual ~ICastle();
 
-    virtual IChessType type() override;
-    virtual QList<IChessStep*> allPossibleSteps() override;
+    virtual IPieceType type() override;
+    virtual QList<IStep*> allPossibleSteps() override;
 
 protected:
     virtual bool canMove(const QPoint& newPos) override;

@@ -1,17 +1,17 @@
 ﻿#ifndef IKING_H
 #define IKING_H
 
-#include "iabstractchess.h"
+#include "ipiece.h"
 
-class IGeneral : public IAbstractChess
+class IGeneral : public IPiece
 {
     Q_OBJECT
 public:
     explicit IGeneral(QObject *parent = nullptr);
     virtual ~IGeneral();
 
-    virtual IChessType type() override;
-    virtual QList<IChessStep*> allPossibleSteps() override;
+    virtual IPieceType type() override;
+    virtual QList<IStep*> allPossibleSteps() override;
 
 protected:
     virtual bool canMove(const QPoint& newPos) override;

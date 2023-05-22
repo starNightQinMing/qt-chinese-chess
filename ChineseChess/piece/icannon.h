@@ -1,17 +1,17 @@
 ﻿#ifndef ICANNON_H
 #define ICANNON_H
 
-#include "iabstractchess.h"
+#include "ipiece.h"
 
-class ICannon : public IAbstractChess
+class ICannon : public IPiece
 {
     Q_OBJECT
 public:
     explicit ICannon(QObject *parent = nullptr);
     virtual ~ICannon();
 
-    virtual IChessType type() override;
-    virtual QList<IChessStep*> allPossibleSteps() override;
+    virtual IPieceType type() override;
+    virtual QList<IStep*> allPossibleSteps() override;
 
 protected:
     virtual bool canMove(const QPoint& newPos) override;

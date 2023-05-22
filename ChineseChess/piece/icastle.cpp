@@ -1,29 +1,29 @@
-﻿#include "icannon.h"
+﻿#include "icastle.h"
 
 #include "iglobal.h"
 
-ICannon::ICannon(QObject *parent)
-    : IAbstractChess(parent)
+ICastle::ICastle(QObject *parent)
+    : IPiece(parent)
 {
 
 }
 
-ICannon::~ICannon()
+ICastle::~ICastle()
 {
 
 }
 
-IChessType ICannon::type()
+IPieceType ICastle::type()
 {
-    return IChessType::Cannon;
+    return IPieceType::Castle;
 }
 
-QList<IChessStep*> ICannon::allPossibleSteps()
+QList<IStep*> ICastle::allPossibleSteps()
 {
-    QList<IChessStep*> stepList;
+    QList<IStep*> stepList;
 
     QPoint newPos;
-    IChessStep* pStep = nullptr;
+    IStep* pStep = nullptr;
     //上下
     newPos = this->m_pos;
     for (qint32 y = 0;y <= 9; y++)
@@ -53,15 +53,13 @@ QList<IChessStep*> ICannon::allPossibleSteps()
     return stepList;
 }
 
-bool ICannon::canMove(const QPoint &newPos)
+bool ICastle::canMove(const QPoint &newPos)
 {
     //新位置与自己位置的行和列都不相同
     if (newPos.x() != this->m_pos.x() && newPos.y() != this->m_pos.y())
         return false;
 
     //中间有棋子
-    IAbstractChess* pKillChess = IGlobal::global().findChess(newPos);
-
     qint32 minX = this->m_pos.x();
     qint32 minY = this->m_pos.y();
     qint32 maxX = newPos.x();
@@ -77,27 +75,16 @@ bool ICannon::canMove(const QPoint &newPos)
         maxY = this->m_pos.y();
     }
     QPoint midPos;
-    qint32 midChessCount = 0;
     for (qint32 x = minX + 1; x < maxX; x++)
     {
         midPos.setX(x);
         for (qint32 y = minY + 1; y < maxY; y++)
         {
             midPos.setY(y);
-            if (IGlobal::global().findChess(midPos))
-            {
-                if (pKillChess == nullptr)
-                    return false;
-
-                midChessCount++;
-                if (midChessCount == 2)
-                    return  false;
-            }
+            if (IGlobal::global().findPiece(midPos))
+                return false;
         }
     }
-
-    if (midChessCount == 0 && pKillChess != nullptr)
-        return false;
 
     //可以移动到该位置
     return true;
