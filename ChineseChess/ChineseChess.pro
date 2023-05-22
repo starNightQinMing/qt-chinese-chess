@@ -17,6 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(./piece/piece.pri)
 include(./player/player.pri)
+include(./ui/ui.pri)
+include(./widget/widget.pri)
 
 SOURCES += \
     iglobal.cpp \

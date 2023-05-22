@@ -76,7 +76,7 @@ bool IHorse::canMove(const QPoint &newPos)
     //新位置与自己位置不能形成田字
     qint32 xDistance = qAbs(this->m_pos.x() - newPos.x());
     qint32 yDistance = qAbs(this->m_pos.y() - newPos.y());
-    if ((xDistance != 1 && xDistance != 2) || (yDistance != 1 && yDistance != 2))
+    if (!((xDistance == 1 && yDistance == 2) || (xDistance == 2 && yDistance == 1)))
         return false;
 
     //别马脚

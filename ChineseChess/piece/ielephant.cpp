@@ -61,6 +61,10 @@ QList<IStep*> IElephant::allPossibleSteps()
 
 bool IElephant::canMove(const QPoint &newPos)
 {
+    //不能过河
+    if (!IGlobal::global().pieceCampRange(m_camp).contains(newPos))
+        return false;
+
     //新位置与自己位置不能形成田字
     qint32 xDistance = qAbs(this->m_pos.x() - newPos.x());
     qint32 yDistance = qAbs(this->m_pos.y() - newPos.y());

@@ -37,6 +37,9 @@ public:
     explicit IPiece(QObject *parent = nullptr);
     virtual ~IPiece();
 
+    qint32 x() const;
+    qint32 y() const;
+
     QString name() const;
     void setName(const QString &name);
 

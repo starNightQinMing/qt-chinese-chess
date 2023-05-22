@@ -10,7 +10,6 @@ public:
     explicit IRealPlayer(QObject *parent = nullptr);
     virtual ~IRealPlayer();
 
-    virtual IPlayerType type() override;
     virtual void toActivity() override;
     virtual void endActivity() override;
 

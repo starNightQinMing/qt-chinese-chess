@@ -2,6 +2,8 @@
 
 #include "iglobal.h"
 
+#include <QtCore/qdebug.h>
+
 ILocalPlayer::ILocalPlayer(QObject *parent)
     : IRealPlayer(parent)
 {
@@ -46,6 +48,7 @@ void ILocalPlayer::doMove()
     IStep* pStep = m_pCurrentPiece->canMoveTo(m_currentPos);
     if (pStep != nullptr)
     {
+        m_stepList.append(pStep);
         pStep->execute();
         m_pCurrentPiece = nullptr;//走完一步就不记录棋子
         emit moved(pStep);

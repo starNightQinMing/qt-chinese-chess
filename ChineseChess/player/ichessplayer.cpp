@@ -12,7 +12,7 @@ IChessPlayer::IChessPlayer(QObject *parent)
 
 IChessPlayer::~IChessPlayer()
 {
-
+    clearStep();
 }
 
 IPieceCamp IChessPlayer::camp() const
@@ -63,6 +63,15 @@ QList<IStep *> IChessPlayer::stepList() const
 void IChessPlayer::setStepList(const QList<IStep *> &stepList)
 {
     m_stepList = stepList;
+}
+
+void IChessPlayer::clearStep()
+{
+    for (IStep* pStep : m_stepList)
+    {
+        delete pStep;
+    }
+    m_stepList.clear();
 }
 
 void IChessPlayer::takePiece(const QPoint &pos)

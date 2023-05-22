@@ -13,6 +13,16 @@ IPiece::~IPiece()
 
 }
 
+qint32 IPiece::x() const
+{
+    return m_pos.x();
+}
+
+qint32 IPiece::y() const
+{
+    return m_pos.y();
+}
+
 QString IPiece::name() const
 {
     return m_name;

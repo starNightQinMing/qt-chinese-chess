@@ -97,7 +97,7 @@ bool IGeneral::canMove(const QPoint &newPos)
     //新位置与自己位置不是相隔一列或一行
     qint32 xDistance = qAbs(this->m_pos.x() - newPos.x());
     qint32 yDistance = qAbs(this->m_pos.y() - newPos.y());
-    if (xDistance > 1 || yDistance > 1)
+    if (!((xDistance == 1 && yDistance == 0) || (xDistance == 0 && yDistance == 1)))
         return false;
 
     return true;

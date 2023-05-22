@@ -13,11 +13,6 @@ IRealPlayer::~IRealPlayer()
 
 }
 
-IPlayerType IRealPlayer::type()
-{
-    return IPlayerType::Real;
-}
-
 void IRealPlayer::toActivity()
 {
     setActivity(true);

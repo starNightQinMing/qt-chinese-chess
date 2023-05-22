@@ -9,7 +9,6 @@ enum class IPlayerType
 {
     None = 0,
     Computer,
-    Real,
     Local,
     Network
 };
@@ -36,6 +35,7 @@ public:
     QList<IStep *> stepList() const;
     void setStepList(const QList<IStep *> &stepList);
 
+    void clearStep();
     virtual void takePiece(const QPoint& pos);
     virtual IPlayerType type() = 0;
     virtual void toActivity() = 0;

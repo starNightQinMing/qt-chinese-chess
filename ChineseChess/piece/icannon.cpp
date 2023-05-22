@@ -78,13 +78,15 @@ bool ICannon::canMove(const QPoint &newPos)
     }
     QPoint midPos;
     qint32 midPieceCount = 0;
-    for (qint32 x = minX + 1; x < maxX; x++)
+    for (qint32 x = minX; x <= maxX; x++)
     {
         midPos.setX(x);
-        for (qint32 y = minY + 1; y < maxY; y++)
+        for (qint32 y = minY; y <= maxY; y++)
         {
             midPos.setY(y);
-            if (IGlobal::global().findPiece(midPos))
+            if (midPos == this->m_pos || midPos == newPos) continue;
+
+            if (IGlobal::global().findPiece(midPos) != nullptr)
             {
                 if (pKillChess == nullptr)
                     return false;

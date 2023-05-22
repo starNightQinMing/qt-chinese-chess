@@ -2,6 +2,8 @@
 
 #include "piece/ipiecefactory.h"
 
+#include <QtCore/qdebug.h>
+
 IGlobal &IGlobal::global()
 {
     static IGlobal global;
@@ -90,7 +92,7 @@ void IGlobal::initPos()
     //红棋位置
     QList<QPoint> redPositionList;
     redPositionList << QPoint(0, 6) << QPoint(2, 6) << QPoint(4, 6) << QPoint(6, 6) << QPoint(8, 6);
-    redPositionList << QPoint(3, 9) << QPoint(5, 9) << QPoint(4, 9) << QPoint(2, 0) << QPoint(6, 9);
+    redPositionList << QPoint(3, 9) << QPoint(5, 9) << QPoint(4, 9) << QPoint(2, 9) << QPoint(6, 9);
     redPositionList << QPoint(1, 9) << QPoint(7, 9) << QPoint(1, 7) << QPoint(7, 7) << QPoint(0, 9) << QPoint(8, 9);
     m_redPosList = redPositionList;
 }
@@ -127,9 +129,9 @@ void IGlobal::initPiece()
     //红棋
     //名称
     QStringList redNameList;
-    blackNameList << "兵" << "兵" << "兵" << "兵" << "兵";
-    blackNameList << "仕" << "仕" << "帥" << "相" << "相";
-    blackNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
+    redNameList << "兵" << "兵" << "兵" << "兵" << "兵";
+    redNameList << "仕" << "仕" << "帥" << "相" << "相";
+    redNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
 
     //创建棋子，添加到数组中
     IPieceCamp redCamp = IPieceCamp::Red;
