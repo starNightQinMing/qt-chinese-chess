@@ -19,6 +19,7 @@ include(./piece/piece.pri)
 include(./player/player.pri)
 include(./ui/ui.pri)
 include(./widget/widget.pri)
+include(./engine/engine.pri)
 
 SOURCES += \
     iglobal.cpp \

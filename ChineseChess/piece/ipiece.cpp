@@ -4,8 +4,13 @@
 
 IPiece::IPiece(QObject *parent)
     : QObject(parent)
+    , m_isDead(false)
 {
-
+//    QString m_name;
+//    QPoint m_pos;
+//    QSize m_size;
+//    IPieceCamp m_camp;
+//    bool m_isDead;
 }
 
 IPiece::~IPiece()

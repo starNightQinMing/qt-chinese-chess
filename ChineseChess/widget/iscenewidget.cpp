@@ -38,7 +38,7 @@ void ISceneWidget::changeEvent(QEvent *pEvent)
 
 void ISceneWidget::initPlayer()
 {
-    m_pBlackPlayer = new ILocalPlayer();
+    m_pBlackPlayer = new IComputerPlayer();
     m_pBlackPlayer->setCamp(IPieceCamp::Black);
     QWidget::connect(m_pBlackPlayer, &IChessPlayer::pieceTook,
                      this, &ISceneWidget::onChessPlayerPieceTook);
@@ -53,6 +53,7 @@ void ISceneWidget::initPlayer()
                      this, &ISceneWidget::onChessPlayerMoved);
 
     m_pCurrentPlayer = m_pRedPlayer;
+    m_pCurrentPlayer->toActivity();
 }
 
 void ISceneWidget::onBoardWidgetPosClicked(const QPoint &pos)
@@ -69,15 +70,17 @@ void ISceneWidget::onChessPlayerPieceTook(IPiece *pPiece)
 
 void ISceneWidget::onChessPlayerMoved(IStep *pStep)
 {
-    m_pBoardWidget->setCurrentPiece(nullptr);
-    m_pBoardWidget->setCurrentStep(pStep);
-    m_pBoardWidget->update();
-    m_pCurrentPlayer = (m_pCurrentPlayer == m_pBlackPlayer) ? m_pRedPlayer : m_pBlackPlayer;
-
     IPiece* pPiece = pStep->killPiece();
     if (pPiece != nullptr && pPiece->type() == IPieceType::General)
     {
         IGlobal::global().reset();
         m_pCurrentPlayer = m_pRedPlayer;
+        return;
     }
+
+    m_pBoardWidget->setCurrentPiece(nullptr);
+    m_pBoardWidget->setCurrentStep(pStep);
+    m_pBoardWidget->update();
+    m_pCurrentPlayer = (m_pCurrentPlayer == m_pBlackPlayer) ? m_pRedPlayer : m_pBlackPlayer;
+    m_pCurrentPlayer->toActivity();
 }

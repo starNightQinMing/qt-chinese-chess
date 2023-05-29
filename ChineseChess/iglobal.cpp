@@ -27,6 +27,24 @@ QList<IPiece *> IGlobal::pieceList() const
     return m_pieceList;
 }
 
+quint8 IGlobal::campBeginIndex(const IPieceCamp &camp) const
+{
+    qint32 index = 0;
+    if (m_pieceList[index]->camp() == camp)
+        return index;
+
+    return index + 16;
+}
+
+quint8 IGlobal::campEndIndex(const IPieceCamp &camp) const
+{
+    qint32 index = 15;
+    if (m_pieceList[index]->camp() == camp)
+        return index;
+
+    return index + 16;
+}
+
 IPiece *IGlobal::findPiece(const IPieceType &type, const IPieceCamp &camp) const
 {
     for (IPiece* pPiece : m_pieceList)
