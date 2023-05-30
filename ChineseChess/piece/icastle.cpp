@@ -24,30 +24,54 @@ QList<IStep*> ICastle::allPossibleSteps()
 
     QPoint newPos;
     IStep* pStep = nullptr;
-    //上下
-    newPos = this->m_pos;
-    for (qint32 y = 0;y <= 9; y++)
-    {
-        if (y == this->m_pos.y())
-            continue;
 
+    //减少判断次数，提高速度
+    //上
+    newPos = this->m_pos;
+    for (qint32 y = this->y() - 1; y >= 0; y--)
+    {
         newPos.setY(y);
         pStep = canMoveTo(newPos);
         if (pStep != nullptr)
             stepList.append(pStep);
+        else
+            break;
     }
 
-    //左右
+    //下
     newPos = this->m_pos;
-    for (qint32 x = 0;x <= 8; x++)
+    for (qint32 y = this->y() + 1; y <= 9; y++)
     {
-        if (x == this->m_pos.x())
-            continue;
+        newPos.setY(y);
+        pStep = canMoveTo(newPos);
+        if (pStep != nullptr)
+            stepList.append(pStep);
+        else
+            break;
+    }
 
+    //左
+    newPos = this->m_pos;
+    for (qint32 x = this->x() - 1; x >= 0; x--)
+    {
         newPos.setX(x);
         pStep = canMoveTo(newPos);
         if (pStep != nullptr)
             stepList.append(pStep);
+        else
+            break;
+    }
+
+    //右
+    newPos = this->m_pos;
+    for (qint32 x = this->x() + 1; x <= 8; x++)
+    {
+        newPos.setX(x);
+        pStep = canMoveTo(newPos);
+        if (pStep != nullptr)
+            stepList.append(pStep);
+        else
+            break;
     }
 
     return stepList;
@@ -60,28 +84,27 @@ bool ICastle::canMove(const QPoint &newPos)
         return false;
 
     //中间有棋子
-    qint32 minX = this->m_pos.x();
-    qint32 minY = this->m_pos.y();
-    qint32 maxX = newPos.x();
-    qint32 maxY = newPos.y();
-    if (minX > maxX)
-    {
-        minX = newPos.x();
-        maxX = this->m_pos.x();
-    }
-    if (minY > maxY)
-    {
-        minY = newPos.y();
-        maxY = this->m_pos.y();
-    }
     QPoint midPos;
-    for (qint32 x = minX; x <= maxX; x++)
+    if (newPos.x() == this->m_pos.x())
     {
-        midPos.setX(x);
-        for (qint32 y = minY; y <= maxY; y++)
+        midPos.setX(this->m_pos.x());
+        qint32 minY = this->m_pos.y() < newPos.y() ? this->m_pos.y() : newPos.y();
+        qint32 maxY = this->m_pos.y() > newPos.y() ? this->m_pos.y() : newPos.y();
+        for (qint32 y = minY + 1; y < maxY; y++)
         {
             midPos.setY(y);
-            if (midPos == this->m_pos || midPos == newPos) continue;
+            if (IGlobal::global().findPiece(midPos) != nullptr)
+                return false;
+        }
+    }
+    else
+    {
+        midPos.setY(this->m_pos.y());
+        qint32 minX = this->m_pos.x() < newPos.x() ? this->m_pos.x() : newPos.x();
+        qint32 maxX = this->m_pos.x() > newPos.x() ? this->m_pos.x() : newPos.x();
+        for (qint32 x = minX + 1; x < maxX; x++)
+        {
+            midPos.setX(x);
             if (IGlobal::global().findPiece(midPos) != nullptr)
                 return false;
         }

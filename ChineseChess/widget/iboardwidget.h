@@ -20,6 +20,9 @@ public:
     IStep *currentStep() const;
     void setCurrentStep(IStep *pCurrentStep);
 
+    bool canUpdate() const;
+    void setCanUpdate(const bool& canUpdate);
+
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
     void drawGrid(QPainter& painter);
@@ -43,6 +46,7 @@ private:
     qint32 m_height;
     IPiece* m_pCurrentPiece;
     IStep* m_pCurrentStep;
+    bool m_canUpdate;
 };
 
 #endif // IBOARDWIDGET_H

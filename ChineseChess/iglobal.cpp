@@ -101,38 +101,46 @@ IGlobal::IGlobal(QObject *parent)
 void IGlobal::initPos()
 {
     //黑棋位置
-    QList<QPoint> blackPositionList;
+    QList<QPoint> blackPositionList = {//blackPiecePos
+           QPoint(0, 0) , QPoint(8, 0) , QPoint(1, 2) , QPoint(7, 2)
+           , QPoint(1, 0) , QPoint(7, 0)
+           , QPoint(0, 3) , QPoint(2, 3) , QPoint(4, 3) , QPoint(6, 3) , QPoint(8, 3)
+           , QPoint(4, 0), QPoint(3, 0) , QPoint(5, 0)
+           , QPoint(2, 0) , QPoint(6, 0)};/*
     blackPositionList << QPoint(0, 3) << QPoint(2, 3) << QPoint(4, 3) << QPoint(6, 3) << QPoint(8, 3);
     blackPositionList << QPoint(3, 0) << QPoint(5, 0) << QPoint(4, 0) << QPoint(2, 0) << QPoint(6, 0);
-    blackPositionList << QPoint(1, 0) << QPoint(7, 0) << QPoint(1, 2) << QPoint(7, 2) << QPoint(0, 0) << QPoint(8, 0);
+    blackPositionList << QPoint(1, 0) << QPoint(7, 0) << QPoint(1, 2) << QPoint(7, 2) << QPoint(0, 0) << QPoint(8, 0);*/
     m_blackPosList = blackPositionList;
 
     //红棋位置
-    QList<QPoint> redPositionList;
-    redPositionList << QPoint(0, 6) << QPoint(2, 6) << QPoint(4, 6) << QPoint(6, 6) << QPoint(8, 6);
-    redPositionList << QPoint(3, 9) << QPoint(5, 9) << QPoint(4, 9) << QPoint(2, 9) << QPoint(6, 9);
-    redPositionList << QPoint(1, 9) << QPoint(7, 9) << QPoint(1, 7) << QPoint(7, 7) << QPoint(0, 9) << QPoint(8, 9);
+    QList<QPoint> redPositionList = {//redPiecePos
+         QPoint(0, 9) , QPoint(8, 9) , QPoint(1, 7) , QPoint(7, 7)
+         , QPoint(1, 9) , QPoint(7, 9)
+         , QPoint(0, 6) , QPoint(2, 6) , QPoint(4, 6) , QPoint(6, 6) , QPoint(8, 6)
+         , QPoint(4, 9) , QPoint(3, 9) , QPoint(5, 9)
+         , QPoint(2, 9) , QPoint(6, 9)};
+//    redPositionList << QPoint(0, 6) << QPoint(2, 6) << QPoint(4, 6) << QPoint(6, 6) << QPoint(8, 6);
+//    redPositionList << QPoint(3, 9) << QPoint(5, 9) << QPoint(4, 9) << QPoint(2, 9) << QPoint(6, 9);
+//    redPositionList << QPoint(1, 9) << QPoint(7, 9) << QPoint(1, 7) << QPoint(7, 7) << QPoint(0, 9) << QPoint(8, 9);
     m_redPosList = redPositionList;
 }
 
 void IGlobal::initPiece()
 {
     //类型
-    QList<IPieceType> typeList;
-    typeList << IPieceType::Soldier << IPieceType::Soldier << IPieceType::Soldier
-             << IPieceType::Soldier << IPieceType::Soldier;
-    typeList << IPieceType::Guard << IPieceType::Guard << IPieceType::General
-             << IPieceType::Elephant << IPieceType::Elephant;
-    typeList << IPieceType::Horse << IPieceType::Horse << IPieceType::Cannon
-             << IPieceType::Cannon << IPieceType::Castle << IPieceType::Castle;
+    QList<IPieceType> typeList = {
+        IPieceType::Castle , IPieceType::Castle , IPieceType::Cannon , IPieceType::Cannon
+        , IPieceType::Horse , IPieceType::Horse
+        , IPieceType::Soldier , IPieceType::Soldier , IPieceType::Soldier , IPieceType::Soldier , IPieceType::Soldier
+        , IPieceType::General , IPieceType::Guard , IPieceType::Guard
+        , IPieceType::Elephant , IPieceType::Elephant
+    };
 
     qint32 count = 16;
     //黑棋
     //名称
-    QStringList blackNameList;
-    blackNameList << "卒" << "卒" << "卒" << "卒" << "卒";
-    blackNameList << "士" << "士" << "將" << "象" << "象";
-    blackNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
+    QStringList blackNameList = {"車" , "車" , "炮" , "炮" , "馬" , "馬" , "卒" , "卒"
+                                 , "卒" , "卒" , "卒" , "將" , "士" , "士" , "象" , "象"};
 
     //创建棋子，添加到数组中
     IPieceCamp blackCamp = IPieceCamp::Black;
@@ -146,10 +154,8 @@ void IGlobal::initPiece()
 
     //红棋
     //名称
-    QStringList redNameList;
-    redNameList << "兵" << "兵" << "兵" << "兵" << "兵";
-    redNameList << "仕" << "仕" << "帥" << "相" << "相";
-    redNameList << "馬" << "馬" << "炮" << "炮" << "車" << "車";
+    QStringList redNameList = {"車" , "車" , "砲" , "砲" , "馬" , "馬" , "兵" , "兵"
+                               , "兵" , "兵" , "兵" , "帥" , "仕" , "仕" , "相" , "相" };
 
     //创建棋子，添加到数组中
     IPieceCamp redCamp = IPieceCamp::Red;

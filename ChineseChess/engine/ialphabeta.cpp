@@ -13,30 +13,31 @@ IAlphaBeta::~IAlphaBeta()
 
 qint32 IAlphaBeta::alphaBeta(qint32 searchDepth, qint32 alpha, qint32 beta)
 {
-    //bool first = true;
     IStep* pStep = Q_NULLPTR;
     qint32 score(0);
     quint8 pieceStepCount(0);
     QList<IStep*> stepList;
+    IPiece* pPiece = Q_NULLPTR;
     for (quint8 index(0);index < 16;index++)
     {
-        if (m_operatePieceList[index]->isDead()) continue;
+        pPiece = m_operatePieceList[index];
+        if (pPiece->isDead()) continue;
 
-        stepList = m_operatePieceList[index]->allPossibleSteps();
+        stepList = pPiece->allPossibleSteps();
         pieceStepCount = stepList.count();
         while (pieceStepCount--)
         {
             m_stepCount++;
             pStep = stepList[pieceStepCount];
-            fakeMove(pStep);
-            if (checkSelfGeneral())
-            {
-                unFakeMove(pStep);
-                delete pStep;
-                continue;
-            }
+            pStep->execute();//fakeMove(pStep);
+//            if (checkSelfGeneral())
+//            {
+//                pStep->revoke();//unFakeMove(pStep);
+//                delete pStep;
+//                continue;
+//            }
             score = -this->beta(searchDepth - 1, -beta, -alpha);
-            unFakeMove(pStep);
+            pStep->revoke();//unFakeMove(pStep);
 
             if (score > alpha)
             {
@@ -73,12 +74,14 @@ qint32 IAlphaBeta::alpha(qint32 searchDepth, qint32 alpha, qint32 beta)
         return calScore(m_camp);
 
     IStep* pStep = Q_NULLPTR;
+    IPiece* pPiece = Q_NULLPTR;
     qint32 score(0);
     for(quint8 index(0);index < 16;index++)
     {
-        if (m_operatePieceList[index]->isDead()) continue;
+        pPiece = m_operatePieceList[index];
+        if (pPiece->isDead()) continue;
 
-        QList<IStep*> chessStepList = m_operatePieceList[index]->allPossibleSteps();
+        QList<IStep*> chessStepList = pPiece->allPossibleSteps();
         while (!chessStepList.isEmpty())
         {
             pStep = chessStepList.back();
@@ -94,7 +97,7 @@ qint32 IAlphaBeta::alpha(qint32 searchDepth, qint32 alpha, qint32 beta)
 //            }
             m_stepCount++;
             score = -this->beta(searchDepth - 1, -beta, -alpha);
-            unFakeMove(pStep);
+            pStep->revoke();//unFakeMove(pStep);
 
             delete pStep;
             pStep = Q_NULLPTR;
@@ -123,18 +126,20 @@ qint32 IAlphaBeta::beta(qint32 searchDepth, qint32 alpha, qint32 beta)
         return calScore(IPieceCamp::Red);
 
     IStep* pStep = Q_NULLPTR;
+    IPiece* pPiece = Q_NULLPTR;
     qint32 score(0);
     for(quint8 index(16);index < 32;index++)
     {
-        if (m_operatePieceList[index]->isDead()) continue;
+        pPiece = m_operatePieceList[index];
+        if (pPiece->isDead()) continue;
 
-        QList<IStep*> chessStepList = m_operatePieceList[index]->allPossibleSteps();
+        QList<IStep*> chessStepList = pPiece->allPossibleSteps();
         while (!chessStepList.isEmpty())
         {
             pStep = chessStepList.back();
             chessStepList.removeLast();
 
-            fakeMove(pStep);
+            pStep->execute();//fakeMove(pStep);
 //            if (checkCampGeneral(Camp::Red))
 //            {
 //                unFakeMove(pStep);
@@ -144,7 +149,7 @@ qint32 IAlphaBeta::beta(qint32 searchDepth, qint32 alpha, qint32 beta)
 //            }
             m_stepCount++;
             score = -this->alpha(searchDepth - 1, -beta, -alpha);
-            unFakeMove(pStep);
+            pStep->revoke();//unFakeMove(pStep);
 
             delete pStep;
             pStep = Q_NULLPTR;

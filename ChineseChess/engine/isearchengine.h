@@ -52,6 +52,12 @@ public:
 protected:
     virtual void search() = 0;
 
+signals:
+    void searchEnd();
+
+public slots:
+    void startSearch();
+
 protected:
     qint32 m_searchDepth;
     IPieceCamp m_camp;

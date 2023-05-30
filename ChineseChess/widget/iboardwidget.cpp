@@ -8,6 +8,7 @@ IBoardWidget::IBoardWidget(QWidget *parent)
     : QWidget(parent)
     , m_pCurrentPiece(nullptr)
     , m_pCurrentStep(nullptr)
+    , m_canUpdate(true)
 {
     m_x = 60;
     m_y = 60;
@@ -25,6 +26,16 @@ IStep *IBoardWidget::currentStep() const
 void IBoardWidget::setCurrentStep(IStep *pCurrentStep)
 {
     m_pCurrentStep = pCurrentStep;
+}
+
+bool IBoardWidget::canUpdate() const
+{
+    return m_canUpdate;
+}
+
+void IBoardWidget::setCanUpdate(const bool &canUpdate)
+{
+    m_canUpdate = canUpdate;
 }
 
 IPiece *IBoardWidget::currentPiece() const

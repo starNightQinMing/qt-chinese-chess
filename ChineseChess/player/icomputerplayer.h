@@ -4,6 +4,7 @@
 #include "ichessplayer.h"
 
 class ISearchEngine;
+class QThread;
 
 class IComputerPlayer : public IChessPlayer
 {
@@ -21,10 +22,15 @@ public:
     void setSearchEngine(ISearchEngine *pSearchEngine);
 
 signals:
+    void needSearch();
+
+private slots:
+    void onSearchEngineSearchEnd();
 
 private:
     //搜索引擎
     ISearchEngine* m_pSearchEngine;
+    QThread* m_pEngineThread;
 };
 
 #endif // ICOMPUTERPLAYER_H

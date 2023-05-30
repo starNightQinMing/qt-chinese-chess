@@ -45,6 +45,7 @@ public:
 signals:
     void moved(IStep* pStep);
     void pieceTook(IPiece* pPiece);
+    void admitDefeat();
 
 protected:
     IPieceCamp m_camp;

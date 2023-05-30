@@ -5,6 +5,8 @@
 #include <QtCore/qdebug.h>
 #include <QtCore/qdatetime.h>
 
+#include <QtCore/qthread.h>
+
 ISearchEngine::ISearchEngine(QObject *parent)
     : QObject(parent)
     , m_searchDepth(DEFAULT_SEARCH_DEPTH)
@@ -110,7 +112,18 @@ qint32 ISearchEngine::calScore(IPieceCamp camp)
 {
     //车 马 相 士 将 炮 兵
     //车9分、炮4分半、马4分、过河兵2分、未过河兵1分、相2分、仕2分。
-    qint32 chessScore[7] = { 90, 40, 10, 10, 2000, 50, 10 };//2520
+    /*enum class IPieceType {
+    Empty = 0,  //未知
+    General,       //将/帅
+    Guard,      //士
+    Elephant,   //象
+    Horse,      //马
+    Castle,        //车
+    Cannon,     //炮
+    Soldier     //兵/卒
+};*/
+    qint32 pieceScore[7] = { 2000, 10, 10, 40, 90, 50, 10 };
+    //qint32 chessScore[7] = { 90, 40, 10, 10, 2000, 50, 10 };//2520
     qint32 blackScore = 0;
     qint32 redScore = 0;
     for (IPiece* pPiece : m_operatePieceList)
@@ -150,13 +163,12 @@ qint32 ISearchEngine::calScore(IPieceCamp camp)
         }*/
 
         if (pPiece->camp() == IPieceCamp::Black)
-            blackScore += chessScore[qint32(pPiece->type())];// +chessStepList.count() * 2;
+            blackScore += pieceScore[qint32(pPiece->type()) - 1];// +chessStepList.count() * 2;
         else
-            redScore += chessScore[qint32(pPiece->type())];// +chessStepList.count() * 2;
+            redScore += pieceScore[qint32(pPiece->type()) - 1];// +chessStepList.count() * 2;
     }
 
     qint32 situationScore = (camp == IPieceCamp::Black) ? blackScore - redScore : redScore - blackScore;
-
     return situationScore;
 }
 
@@ -364,5 +376,12 @@ void ISearchEngine::getFirstStep()
         m_pBestStep = pPiece->canMoveTo(QPoint(pPiece->x(), pPiece->y() + 1));
         return;
     }
+}
+
+void ISearchEngine::startSearch()
+{
+    QThread::msleep(200);//先停0.2秒
+    bestStep(IGlobal::global().pieceList());
+    emit searchEnd();
 }
 

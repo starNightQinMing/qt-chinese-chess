@@ -1,0 +1,22 @@
+﻿QWidget#MainWidget {
+border-image: url(:/ChineseChess/images/background4.png);
+}
+
+QPushButton {
+border-image: url(:/ChineseChess/images/buttonBackground.png);
+color:rgb(117, 250, 97);
+font-family:楷体;
+font-size:25px;
+height:80px;
+}
+
+QPushButton:hover {
+font-size:30px;
+}
+
+QLabel {
+color: white;
+font-family:楷体;
+font-size:25px;
+height:80px;
+}

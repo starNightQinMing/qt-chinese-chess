@@ -4,7 +4,8 @@
 #include "iabstractwidgetui.h"
 
 class IBoardWidget;
-class IOperationWidget;
+class IPersonalWidget;
+class QPushButton;
 
 class ISceneWidgetUi : public IAbstractWidgetUi
 {
@@ -23,8 +24,34 @@ protected:
 
 protected:
     QHBoxLayout* m_pMainLayout;
+    QSpacerItem* m_pLeftHorizontalSpacer;
+    QSpacerItem* m_pRightHorizontalSpacer;
+
+    QVBoxLayout* m_pLeftLayout;
+    IPersonalWidget* m_pBlackPersonalWidget;
+    QSpacerItem* m_pLeftTopVerticalSpacer;
+    QPushButton* m_pStartButton;
+    QPushButton* m_pRestartButton;
+    QPushButton* m_pPauseButton;
+    QPushButton* m_pEndButton;
+    QPushButton* m_pQuitButton;
+    QSpacerItem* m_pLeftCenterVerticalSpacer;
+    QHBoxLayout* m_pLeftBottomLayout;
+    QPushButton* m_pAboutButton;
+    QPushButton* m_pHelpButton;
+
+    QVBoxLayout* m_pSceneLayout;
+    QSpacerItem* m_pScentTopVerticalSpacer;
     IBoardWidget* m_pBoardWidget;
-    IOperationWidget* m_pOperationWidget;
+    QSpacerItem* m_pScentBottomVerticalSpacer;
+
+    QVBoxLayout* m_pRightLayout;
+    QSpacerItem* m_pRightTopVerticalSpacer;
+    QPushButton* m_pRepentanceButton;
+    QPushButton* m_pRequestButton;
+    QPushButton* m_pAdmitDefeatButton;
+    QPushButton* m_pPromptButton;
+    IPersonalWidget* m_pRedPersonalWidget;
 };
 
 #endif // ISCENEWIDGETUI_H

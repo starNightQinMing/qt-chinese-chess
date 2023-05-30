@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/ChineseChess">
+        <file>images/background.png</file>
+        <file>images/background2.png</file>
+        <file>images/background3.png</file>
+        <file>images/background4.png</file>
+        <file>images/blackWin.png</file>
+        <file>images/buttonBackground.png</file>
+        <file>images/chatBackground.png</file>
+        <file>images/ChineseChessIcon.png</file>
+        <file>images/Common_Bg_Main.jpg</file>
+        <file>images/eatChess.png</file>
+        <file>images/general.png</file>
+        <file>images/general2.png</file>
+        <file>images/general3.png</file>
+        <file>images/general4.png</file>
+        <file>images/general5.png</file>
+        <file>images/general6.png</file>
+        <file>images/general7.png</file>
+        <file>images/inputChat.png</file>
+        <file>images/mainbg.jpg</file>
+        <file>images/redWin.png</file>
+        <file>images/textBackground.png</file>
+        <file>images/textBackground2.png</file>
+        <file>images/textBackground3.png</file>
+        <file>images/textBackground4.png</file>
+        <file>sounds/ChineseChessBackgroundMusic.mp3</file>
+        <file>sounds/dropPiece.mp3</file>
+        <file>sounds/eatPiece.mp3</file>
+        <file>sounds/fightLose.mp3</file>
+        <file>sounds/fightWin.mp3</file>
+        <file>sounds/movePiece.mp3</file>
+        <file>sounds/selectPiece.mp3</file>
+        <file>qss/imainwidget.qss</file>
+    </qresource>
+</RCC>

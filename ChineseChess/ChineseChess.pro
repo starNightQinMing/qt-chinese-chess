@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui multimedia network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,6 +20,7 @@ include(./player/player.pri)
 include(./ui/ui.pri)
 include(./widget/widget.pri)
 include(./engine/engine.pri)
+include(./util/util.pri)
 
 SOURCES += \
     iglobal.cpp \
@@ -34,3 +35,6 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc
